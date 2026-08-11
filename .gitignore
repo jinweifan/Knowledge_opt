@@ -1,0 +1,25 @@
+# 虚拟环境与缓存
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# 本地密钥与编辑器
+.env
+.python-version
+.DS_Store
+.cursor/
+.idea/
+.vscode/
+
+# 向量库本地持久化（体积大，可按 README 重建）
+index/chroma_kb/
+index/
+
+# 可选：超大模型缓存（若本地下载）
+.cache/
