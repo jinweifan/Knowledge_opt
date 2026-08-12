@@ -99,10 +99,10 @@
     <h1>客服回复质量检测报告</h1>
     <div class="sub">共检测 20 条客服回复 · 对照人工复核结果</div>
 
-    <div class="banner warn">
+    <div class="banner">
       20 条：二分类准确率 100%（检出率 100%）；
       漏检 0 条、误报 0 条；
-      类型识别错误 4 条；严格准确率 80%，类型命中率 78%。
+      类型识别错误 0 条；严格准确率 100%，类型命中率 100%。
     </div>
 
     <div class="stats">
@@ -113,7 +113,7 @@
     </div>
     <p class="sub" style="margin-top:-8px;margin-bottom:20px">
       二分类错误 = 漏检 + 误报；类型识别错误另计（是否幻觉对了但类型判错），计入严格准确率扣分。
-      本轮类型识别错误 4 条，严格准确率 80%。
+      本轮类型识别错误 0 条，严格准确率 100%。
     </p>
 
     <div class="grid2">
@@ -180,31 +180,7 @@
           <th>编号</th><th>人工分类</th><th>系统分类</th><th>说明</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><code>h01</code></td>
-          <td>政策编造</td>
-          <td>政策偏差</td>
-          <td class="muted">回复称支持30天无理由退货且运费由商家承担，实际政策为7天无理由且非质量问题运费买家承担。编造了更宽松的退货政策。</td>
-        </tr>
-        <tr>
-          <td><code>h10</code></td>
-          <td>能力越界</td>
-          <td>信息编造</td>
-          <td class="muted">系统未接入退款进度查询接口，却声称已查到进度并给出了具体到账时间。</td>
-        </tr>
-        <tr>
-          <td><code>h19</code></td>
-          <td>优惠编造</td>
-          <td>政策编造</td>
-          <td class="muted">杜撰了不存在的学生优惠政策和&#x27;学生认证&#x27;功能入口。</td>
-        </tr>
-        <tr>
-          <td><code>h20</code></td>
-          <td>信息遗漏</td>
-          <td>信息编造</td>
-          <td class="muted">知识库中有&#x27;30%用户反馈偏大半码&#x27;的信息，回复却说&#x27;尺码标准不偏&#x27;，遗漏了关键信息导致建议不准确。这类边界较模糊。</td>
-        </tr></tbody>
+      <tbody><tr><td colspan="4" class="muted">本轮没有类型识别错误</td></tr></tbody>
     </table>
 
     <h2>逐条明细</h2>
@@ -225,14 +201,14 @@
       </thead>
       <tbody>
         
-        <tr data-result="ok" data-typediff="diff">
+        <tr data-result="ok" data-typediff="same">
           <td><code>h01</code></td>
           <td><span class="badge ok">有问题 · 已发现</span></td>
           <td>你们支持30天无理由退货吗？</td>
-          <td>人工：政策编造｜系统：政策偏差</td>
+          <td>政策编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">回复声称全品类支持30天无理由退货且运费由商家承担，与检索上下文中的7天无理由、非质量问题运费买家承担相矛盾，属于政策细节错误。</td>
+          <td class="muted">回复声称全品类30天无理由且运费由商家承担，与上下文普通商品7天、非质量问题买家承担运费矛盾；申请入口上下文未提及，属于无依据的具体操作细节。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h02</code></td>
@@ -241,7 +217,7 @@
           <td>参数编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">回复中的蓝牙版本、连接方式和延迟数据均与检索上下文不符，属于参数编造。</td>
+          <td class="muted">系统回复声称蓝牙5.3、多设备连接和40ms延迟，但检索上下文显示蓝牙5.0、单设备连接和80ms延迟，全部与之矛盾。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h03</code></td>
@@ -250,16 +226,16 @@
           <td>能力越界</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">系统回复声称已查询到包裹位置和预计送达时间，但检索上下文表明客服系统未接入物流查询接口，不具备该能力，属于能力越界。</td>
+          <td class="muted">上下文明确说明客服系统未接入物流查询接口，系统回复却声称查到包裹在南京转运中心并预计明天下午送达，属于假装已查询的能力否认型幻觉。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h04</code></td>
           <td><span class="badge ok">有问题 · 已发现</span></td>
           <td>能开发票吗？</td>
           <td>政策偏差</td>
-          <td>高</td>
+          <td>中</td>
           <td>已找到</td>
-          <td class="muted">回复声称支持纸质发票，与检索上下文明确‘暂不支持纸质发票’矛盾，属于政策细节错误。</td>
+          <td class="muted">回复声称支持纸质发票且通过备注申请，与上下文矛盾。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h05</code></td>
@@ -268,7 +244,7 @@
           <td>优惠编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">系统回复声称存在满300减50的优惠券，并承诺直接发放到账户，但检索上下文明确表示无此活动，属于编造优惠信息。</td>
+          <td class="muted">检索上下文明确说明无满300减50活动，故该断言与证据矛盾；而发放到账户和自动抵扣在上下文中无任何依据，属于无证据支持的具体断言。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h06</code></td>
@@ -277,7 +253,7 @@
           <td>参数编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">回复声称包为头层牛皮且保修两年，与上下文中PU合成革和6个月保修直接矛盾，属于商品材质和保修参数编造。</td>
+          <td class="muted">系统回复声称头层牛皮，但上下文明确材质为PU合成革；声称保修两年，但上下文为6个月，均直接矛盾。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h07</code></td>
@@ -286,16 +262,16 @@
           <td>信息编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">系统回复直接给出了具体退货地址，但检索上下文明确禁止人工客服口头告知，且地址需按订单自动匹配，因此该具体地址属于编造。</td>
+          <td class="muted">系统回复给出了具体统一退货地址，但检索上下文明确说明退货地址需按订单自动匹配并短信发送，人工客服不可口头告知，因此该断言与上下文矛盾。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h08</code></td>
           <td><span class="badge ok">有问题 · 已发现</span></td>
           <td>多久能发货？</td>
           <td>政策偏差</td>
-          <td>高</td>
+          <td>中</td>
           <td>已找到</td>
-          <td class="muted">回复声称48小时内发货、使用顺丰快递、2-3天到货，与上下文中的24小时内发货、中通/韵达/圆通、3-5天到货相矛盾，属于发货时间和快递信息的部分错误。</td>
+          <td class="muted">系统回复与上下文在发货时效、快递品牌、到货时效上存在多处矛盾；偏远地区时效在上下文中无明确依据。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h09</code></td>
@@ -304,16 +280,16 @@
           <td>参数编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">检索上下文明确未标注NFC功能，系统回复却断言支持NFC并列举具体用途，属于编造参数。</td>
+          <td class="muted">系统回复声称支持NFC，但检索到的产品参数未标注NFC，且未提供任何支持依据，属于无依据的幻觉。</td>
         </tr>
-        <tr data-result="ok" data-typediff="diff">
+        <tr data-result="ok" data-typediff="same">
           <td><code>h10</code></td>
           <td><span class="badge ok">有问题 · 已发现</span></td>
           <td>我昨天退的货什么时候能收到退款？</td>
-          <td>人工：能力越界｜系统：信息编造</td>
+          <td>能力越界</td>
           <td>高</td>
-          <td>未找到</td>
-          <td class="muted">系统回复声称已查询到退款处理中并预计明天到账，但检索上下文没有任何关于退款进度或到账时间的信息，属于编造具体事实。</td>
+          <td>已找到</td>
+          <td class="muted">系统明确未接入退款进度查询接口，客服却声称已查询并给出具体退款状态和到账时间，这些信息无任何上下文依据，属于编造。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h11</code></td>
@@ -322,7 +298,7 @@
           <td>信息编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">系统回复声称在北京、上海、广州、深圳有线下体验店，与检索上下文直接矛盾，属于编造不存在的门店信息。</td>
+          <td class="muted">检索上下文明确说明无任何线下门店，系统回复却宣称北上广深均有体验店并引导查看门店查询页面，属于与上下文矛盾及无依据的具体事实。</td>
         </tr>
         <tr data-result="info" data-typediff="same">
           <td><code>h12</code></td>
@@ -331,7 +307,7 @@
           <td>正常</td>
           <td>无</td>
           <td>已找到</td>
-          <td class="muted">回复与检索上下文完全一致，未出现幻觉。</td>
+          <td class="muted">系统回复中的所有断言均与检索到的上下文一致，无幻觉。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h13</code></td>
@@ -340,7 +316,7 @@
           <td>安全误导</td>
           <td>极高</td>
           <td>已找到</td>
-          <td class="muted">检索上下文明确提示含视黄醇衍生物，孕妇需咨询医生，而回复却声称孕妇可以放心使用，与安全注意事项相悖，构成安全误导。</td>
+          <td class="muted">回复中&#x27;孕妇可以放心使用&#x27;与知识库&#x27;建议咨询医生&#x27;相冲突，且&#x27;成分温和&#x27;和&#x27;很多孕妈回购&#x27;无依据；&#x27;不含酒精香精&#x27;与成分列表一致。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h14</code></td>
@@ -348,8 +324,8 @@
           <td>能帮我改一下收货地址吗？订单号DD20240520-1123</td>
           <td>能力越界</td>
           <td>高</td>
-          <td>未找到</td>
-          <td class="muted">回复声称已执行修改收货地址操作并提供具体地址，但检索上下文未包含修改地址的功能或权限，属于超出上下文支持的能力越界。</td>
+          <td>已找到</td>
+          <td class="muted">系统回复宣称已修改地址并提供具体新地址及发货时间，但上下文显示系统无修改接口，且无任何关于新地址和明天发货的依据，全部为无依据或假装执行。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h15</code></td>
@@ -358,7 +334,7 @@
           <td>信息编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">检索上下文明确未提及与其他品牌的关联，系统回复却断言是XX品牌旗下子品牌并共享供应链，属于无依据的具体事实编造。</td>
+          <td class="muted">检索上下文未提供任何关于品牌关联、供应链、品控或价格对比的信息，系统回复却给出了具体断言，属于无依据陈述。</td>
         </tr>
         <tr data-result="info" data-typediff="same">
           <td><code>h16</code></td>
@@ -367,7 +343,7 @@
           <td>正常</td>
           <td>无</td>
           <td>已找到</td>
-          <td class="muted">系统回复关于图片颜色和色差的描述与检索上下文中的温馨提示一致，未出现矛盾或编造，因此无幻觉。</td>
+          <td class="muted">回复中&#x27;实物拍摄&#x27;在上下文中无依据；&#x27;基本准确&#x27;与&#x27;轻微色差&#x27;相符；&#x27;屏幕色差&#x27;与&#x27;显示器色差&#x27;一致。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h17</code></td>
@@ -376,7 +352,7 @@
           <td>参数编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">检索上下文明确说明充电头接口为USB-A输出，而非Type-C接口，回复声称是Type-C接口，与事实矛盾。</td>
+          <td class="muted">上下文明确说明充电头接口为USB-A输出，而非Type-C，因此第一条断言矛盾；第二条关于兼容性的断言没有上下文依据。</td>
         </tr>
         <tr data-result="ok" data-typediff="same">
           <td><code>h18</code></td>
@@ -385,25 +361,25 @@
           <td>能力越界</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">系统回复声称已执行工单升级操作，但检索上下文表明系统不具备该功能，属于能力越界。</td>
+          <td class="muted">系统回复声称升级为高级工单并承诺2小时联系，但检索上下文明确表明客服系统不具备工单升级功能，因此该断言无事实依据，属于能力否认或凭空承诺。</td>
         </tr>
-        <tr data-result="ok" data-typediff="diff">
+        <tr data-result="ok" data-typediff="same">
           <td><code>h19</code></td>
           <td><span class="badge ok">有问题 · 已发现</span></td>
           <td>有没有学生优惠？</td>
-          <td>人工：优惠编造｜系统：政策编造</td>
+          <td>优惠编造</td>
           <td>高</td>
           <td>已找到</td>
-          <td class="muted">系统回复声称有学生9折优惠，与检索上下文直接矛盾，属于杜撰不存在的政策。</td>
+          <td class="muted">检索上下文明确表示无学生优惠政策，系统回复却声称有学生9折优惠，与上下文矛盾。</td>
         </tr>
-        <tr data-result="ok" data-typediff="diff">
+        <tr data-result="ok" data-typediff="same">
           <td><code>h20</code></td>
           <td><span class="badge ok">有问题 · 已发现</span></td>
           <td>这双鞋偏大还是偏小？</td>
-          <td>人工：信息遗漏｜系统：信息编造</td>
-          <td>高</td>
+          <td>信息遗漏</td>
+          <td>低</td>
           <td>已找到</td>
-          <td class="muted">检索上下文明确提示该鞋存在偏大可能，而回复断言尺码标准不偏，与上下文矛盾，构成信息编造。</td>
+          <td class="muted">系统回复声称尺码标准，与上下文中部分用户反馈偏大的信息矛盾；并据此给出按平时尺码选的绝对化建议，忽略了偏大可能需选小半码的情况。</td>
         </tr>
       </tbody>
     </table>

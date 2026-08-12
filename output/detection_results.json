@@ -2,11 +2,31 @@
   {
     "id": "h01",
     "is_hallucination": true,
-    "hallucination_type": "政策偏差",
+    "hallucination_type": "政策编造",
     "severity": "high",
-    "confidence": 0.98,
+    "confidence": 0.95,
     "evidence": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
-    "detail": "回复声称全品类支持30天无理由退货且运费由商家承担，与检索上下文中的7天无理由、非质量问题运费买家承担相矛盾，属于政策细节错误。",
+    "detail": "回复声称全品类30天无理由且运费由商家承担，与上下文普通商品7天、非质量问题买家承担运费矛盾；申请入口上下文未提及，属于无依据的具体操作细节。",
+    "claims": [
+      {
+        "text": "全品类支持30天无理由退货",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "rights_expansion"
+      },
+      {
+        "text": "运费也由我们承担",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "rights_expansion"
+      },
+      {
+        "text": "您可以在订单详情页直接申请",
+        "evidence_label": "unsupported",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：你们支持30天无理由退货吗？\n客服回复要点：支持的，我们全品类支持30天无理由退货，运费也由我们承担。您可以在订单详情页直接申请。",
@@ -21,17 +41,20 @@
         {
           "doc_id": "h01",
           "score": 0.28051942586898804,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.5594218373298645,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h08",
           "score": 0.771329939365387,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
+          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -42,9 +65,29 @@
     "is_hallucination": true,
     "hallucination_type": "参数编造",
     "severity": "high",
-    "confidence": 1.0,
-    "evidence": "检索上下文明确写有'产品参数：蓝牙5.0，支持单设备连接，延迟约80ms'，与回复中的'蓝牙5.3、多设备连接、延迟40ms'完全矛盾。",
-    "detail": "回复中的蓝牙版本、连接方式和延迟数据均与检索上下文不符，属于参数编造。",
+    "confidence": 0.95,
+    "evidence": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。",
+    "detail": "系统回复声称蓝牙5.3、多设备连接和40ms延迟，但检索上下文显示蓝牙5.0、单设备连接和80ms延迟，全部与之矛盾。",
+    "claims": [
+      {
+        "text": "耳机采用蓝牙5.3版本",
+        "evidence_label": "contradict",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "支持多设备同时连接",
+        "evidence_label": "contradict",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "延迟低至40ms",
+        "evidence_label": "contradict",
+        "topic": "param",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：这个耳机的蓝牙版本是多少？\n客服回复要点：这款耳机采用蓝牙5.3版本，支持多设备同时连接，延迟低至40ms，非常适合游戏使用。",
@@ -59,17 +102,20 @@
         {
           "doc_id": "h02",
           "score": 0.46450144052505493,
-          "content": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。"
+          "content": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h17",
           "score": 1.0016374588012695,
-          "content": "接口类型：USB-A输出。附带一根USB-A to Type-C充电线。"
+          "content": "接口类型：USB-A输出。附带一根USB-A to Type-C充电线。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h01",
           "score": 1.0181121826171875,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -80,34 +126,51 @@
     "is_hallucination": true,
     "hallucination_type": "能力越界",
     "severity": "high",
-    "confidence": 1.0,
-    "evidence": "检索上下文明确写有：'无（客服系统未接入物流查询接口）'",
-    "detail": "系统回复声称已查询到包裹位置和预计送达时间，但检索上下文表明客服系统未接入物流查询接口，不具备该能力，属于能力越界。",
+    "confidence": 0.95,
+    "evidence": "无（客服系统未接入物流查询接口）",
+    "detail": "上下文明确说明客服系统未接入物流查询接口，系统回复却声称查到包裹在南京转运中心并预计明天下午送达，属于假装已查询的能力否认型幻觉。",
+    "claims": [
+      {
+        "text": "包裹目前在南京转运中心",
+        "evidence_label": "capability_deny",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "预计明天下午送达",
+        "evidence_label": "capability_deny",
+        "topic": "fact",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：我的快递到哪了？\n客服回复要点：我帮您查了一下，您的包裹目前在南京转运中心，预计明天下午送达。如有变动会短信通知您。",
       "top_k": 3,
       "exclude_self": false,
       "contexts": [
-        "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
-        "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
-        "无（客服系统未接入物流查询接口）"
+        "无（客服系统未接入物流查询接口）",
+        "无（客服系统未接入订单修改接口，需人工后台操作）",
+        "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
       ],
       "docs": [
         {
+          "doc_id": "h03",
+          "score": 0.5225921273231506,
+          "content": "无（客服系统未接入物流查询接口）",
+          "doc_kind": "capability"
+        },
+        {
+          "doc_id": "h14",
+          "score": 0.6284776926040649,
+          "content": "无（客服系统未接入订单修改接口，需人工后台操作）",
+          "doc_kind": "capability"
+        },
+        {
           "doc_id": "h08",
           "score": 0.6670939326286316,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
-        },
-        {
-          "doc_id": "h07",
-          "score": 0.7342506647109985,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
-        },
-        {
-          "doc_id": "h03",
-          "score": 0.8973362445831299,
-          "content": "无（客服系统未接入物流查询接口）"
+          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -117,10 +180,24 @@
     "id": "h04",
     "is_hallucination": true,
     "hallucination_type": "政策偏差",
-    "severity": "high",
-    "confidence": 0.98,
-    "evidence": "发票政策：支持电子发票，下单后在订单详情页申请。暂不支持纸质发票。",
-    "detail": "回复声称支持纸质发票，与检索上下文明确‘暂不支持纸质发票’矛盾，属于政策细节错误。",
+    "severity": "medium",
+    "confidence": 0.95,
+    "evidence": "上下文说‘支持电子发票，下单后在订单详情页申请。暂不支持纸质发票’。",
+    "detail": "回复声称支持纸质发票且通过备注申请，与上下文矛盾。",
+    "claims": [
+      {
+        "text": "支持纸质发票",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      },
+      {
+        "text": "下单时在备注里写上发票抬头和税号",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：能开发票吗？\n客服回复要点：可以的，支持电子发票和纸质发票。下单时在备注里写上发票抬头和税号就行。",
@@ -135,17 +212,20 @@
         {
           "doc_id": "h04",
           "score": 0.35714712738990784,
-          "content": "发票政策：支持电子发票，下单后在订单详情页申请。暂不支持纸质发票。申请时需提供发票抬头和税号。"
+          "content": "发票政策：支持电子发票，下单后在订单详情页申请。暂不支持纸质发票。申请时需提供发票抬头和税号。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.8780474066734314,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h08",
           "score": 0.9043896794319153,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
+          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -156,9 +236,29 @@
     "is_hallucination": true,
     "hallucination_type": "优惠编造",
     "severity": "high",
-    "confidence": 1.0,
-    "evidence": "检索上下文明确写有'当前优惠活动：满200减20、满500减60。无满300减50的活动。'",
-    "detail": "系统回复声称存在满300减50的优惠券，并承诺直接发放到账户，但检索上下文明确表示无此活动，属于编造优惠信息。",
+    "confidence": 0.98,
+    "evidence": "当前优惠活动：满200减20、满500减60。无满300减50的活动。",
+    "detail": "检索上下文明确说明无满300减50活动，故该断言与证据矛盾；而发放到账户和自动抵扣在上下文中无任何依据，属于无证据支持的具体断言。",
+    "claims": [
+      {
+        "text": "现在有一张满300减50的店铺优惠券",
+        "evidence_label": "contradict",
+        "topic": "promo",
+        "policy_effect": null
+      },
+      {
+        "text": "我直接发到您账户里",
+        "evidence_label": "unsupported",
+        "topic": "capability",
+        "policy_effect": null
+      },
+      {
+        "text": "结账时自动抵扣",
+        "evidence_label": "unsupported",
+        "topic": "promo",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：有没有满300减50的优惠券？\n客服回复要点：有的，现在有一张满300减50的店铺优惠券，我直接发到您账户里，结账时自动抵扣。",
@@ -173,17 +273,20 @@
         {
           "doc_id": "h05",
           "score": 0.4988650381565094,
-          "content": "当前优惠活动：满200减20、满500减60。无满300减50的活动。"
+          "content": "当前优惠活动：满200减20、满500减60。无满300减50的活动。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h01",
           "score": 0.8879765272140503,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.89832603931427,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         }
       ],
       "gold_in_retrieved": true
@@ -194,9 +297,23 @@
     "is_hallucination": true,
     "hallucination_type": "参数编造",
     "severity": "high",
-    "confidence": 1.0,
-    "evidence": "检索上下文明确标注“材质：PU合成革。保修期：6个月。”",
-    "detail": "回复声称包为头层牛皮且保修两年，与上下文中PU合成革和6个月保修直接矛盾，属于商品材质和保修参数编造。",
+    "confidence": 0.95,
+    "evidence": "材质：PU合成革。保修期：6个月。",
+    "detail": "系统回复声称头层牛皮，但上下文明确材质为PU合成革；声称保修两年，但上下文为6个月，均直接矛盾。",
+    "claims": [
+      {
+        "text": "这款包采用头层牛皮制作",
+        "evidence_label": "contradict",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "保修期为两年",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：这个包是真皮的吗？\n客服回复要点：是的，这款包采用头层牛皮制作，手感柔软耐用，保修期为两年。",
@@ -211,17 +328,20 @@
         {
           "doc_id": "h06",
           "score": 0.7208766341209412,
-          "content": "材质：PU合成革。保修期：6个月。"
+          "content": "材质：PU合成革。保修期：6个月。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h01",
           "score": 0.9736955761909485,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h16",
           "score": 1.0200929641723633,
-          "content": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。"
+          "content": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -233,8 +353,16 @@
     "hallucination_type": "信息编造",
     "severity": "high",
     "confidence": 0.98,
-    "evidence": "检索上下文明确说明：退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
-    "detail": "系统回复直接给出了具体退货地址，但检索上下文明确禁止人工客服口头告知，且地址需按订单自动匹配，因此该具体地址属于编造。",
+    "evidence": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+    "detail": "系统回复给出了具体统一退货地址，但检索上下文明确说明退货地址需按订单自动匹配并短信发送，人工客服不可口头告知，因此该断言与上下文矛盾。",
+    "claims": [
+      {
+        "text": "退货地址是浙江省杭州市西湖区文三路478号客服仓库张经理收，邮编310012",
+        "evidence_label": "contradict",
+        "topic": "fact",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：退货地址是什么？\n客服回复要点：退货请寄到：浙江省杭州市西湖区文三路478号 客服仓库 张经理收，邮编310012。",
@@ -249,17 +377,20 @@
         {
           "doc_id": "h07",
           "score": 0.5114694833755493,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h01",
           "score": 0.6692712306976318,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h08",
           "score": 0.8356202244758606,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
+          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -269,10 +400,36 @@
     "id": "h08",
     "is_hallucination": true,
     "hallucination_type": "政策偏差",
-    "severity": "high",
+    "severity": "medium",
     "confidence": 0.95,
     "evidence": "检索上下文：'发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。'",
-    "detail": "回复声称48小时内发货、使用顺丰快递、2-3天到货，与上下文中的24小时内发货、中通/韵达/圆通、3-5天到货相矛盾，属于发货时间和快递信息的部分错误。",
+    "detail": "系统回复与上下文在发货时效、快递品牌、到货时效上存在多处矛盾；偏远地区时效在上下文中无明确依据。",
+    "claims": [
+      {
+        "text": "下单后48小时内发货",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      },
+      {
+        "text": "一般使用顺丰快递",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      },
+      {
+        "text": "大部分地区2-3天到货",
+        "evidence_label": "contradict",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      },
+      {
+        "text": "偏远地区可能需要5天",
+        "evidence_label": "unsupported",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：多久能发货？\n客服回复要点：下单后48小时内发货，一般使用顺丰快递，大部分地区2-3天到货。偏远地区可能需要5天。",
@@ -287,17 +444,20 @@
         {
           "doc_id": "h08",
           "score": 0.3866824507713318,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
+          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h01",
           "score": 0.6815588474273682,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.6858723759651184,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         }
       ],
       "gold_in_retrieved": true
@@ -308,9 +468,23 @@
     "is_hallucination": true,
     "hallucination_type": "参数编造",
     "severity": "high",
-    "confidence": 0.95,
+    "confidence": 0.9,
     "evidence": "产品参数中未标注NFC功能。",
-    "detail": "检索上下文明确未标注NFC功能，系统回复却断言支持NFC并列举具体用途，属于编造参数。",
+    "detail": "系统回复声称支持NFC，但检索到的产品参数未标注NFC，且未提供任何支持依据，属于无依据的幻觉。",
+    "claims": [
+      {
+        "text": "这款手机支持NFC功能。",
+        "evidence_label": "unsupported",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "NFC可用于公交卡、门禁卡和移动支付。",
+        "evidence_label": "unsupported",
+        "topic": "param",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：这款手机支持NFC吗？\n客服回复要点：支持的，这款手机支持NFC功能，可以用于公交卡、门禁卡和移动支付。",
@@ -325,17 +499,20 @@
         {
           "doc_id": "h09",
           "score": 0.6667028069496155,
-          "content": "产品参数中未标注NFC功能。"
+          "content": "产品参数中未标注NFC功能。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h12",
           "score": 0.8127446174621582,
-          "content": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。"
+          "content": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h02",
           "score": 0.823238730430603,
-          "content": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。"
+          "content": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -344,39 +521,62 @@
   {
     "id": "h10",
     "is_hallucination": true,
-    "hallucination_type": "信息编造",
+    "hallucination_type": "能力越界",
     "severity": "high",
     "confidence": 0.95,
-    "evidence": "检索上下文中仅包含退货政策、退货地址和发货时间，未提及退款处理进度或到账时间。",
-    "detail": "系统回复声称已查询到退款处理中并预计明天到账，但检索上下文没有任何关于退款进度或到账时间的信息，属于编造具体事实。",
+    "evidence": "无（客服系统未接入退款进度查询接口）",
+    "detail": "系统明确未接入退款进度查询接口，客服却声称已查询并给出具体退款状态和到账时间，这些信息无任何上下文依据，属于编造。",
+    "claims": [
+      {
+        "text": "客服已查询到退款进度",
+        "evidence_label": "capability_deny",
+        "topic": "capability",
+        "policy_effect": null
+      },
+      {
+        "text": "退款正在处理中",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "退款预计明天到账",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：我昨天退的货什么时候能收到退款？\n客服回复要点：我帮您查了，退款已经在处理中，预计明天到账。请留意您的支付宝通知。",
       "top_k": 3,
       "exclude_self": false,
       "contexts": [
-        "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+        "无（客服系统未接入退款进度查询接口）",
         "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
-        "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
+        "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
       ],
       "docs": [
         {
-          "doc_id": "h01",
-          "score": 0.671337902545929,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "doc_id": "h10",
+          "score": 0.48628902435302734,
+          "content": "无（客服系统未接入退款进度查询接口）",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h07",
-          "score": 0.6784695982933044,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "score": 0.5947856903076172,
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
-          "doc_id": "h08",
-          "score": 0.8119058012962341,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
+          "doc_id": "h01",
+          "score": 0.671337902545929,
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         }
       ],
-      "gold_in_retrieved": false
+      "gold_in_retrieved": true
     }
   },
   {
@@ -384,9 +584,41 @@
     "is_hallucination": true,
     "hallucination_type": "信息编造",
     "severity": "high",
-    "confidence": 1.0,
-    "evidence": "检索上下文明确写有'本品牌为纯线上电商品牌，无线下门店。'",
-    "detail": "系统回复声称在北京、上海、广州、深圳有线下体验店，与检索上下文直接矛盾，属于编造不存在的门店信息。",
+    "confidence": 0.98,
+    "evidence": "本品牌为纯线上电商品牌，无线下门店。",
+    "detail": "检索上下文明确说明无任何线下门店，系统回复却宣称北上广深均有体验店并引导查看门店查询页面，属于与上下文矛盾及无依据的具体事实。",
+    "claims": [
+      {
+        "text": "品牌在北京有线下体验店",
+        "evidence_label": "contradict",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "品牌在上海有线下体验店",
+        "evidence_label": "contradict",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "品牌在广州有线下体验店",
+        "evidence_label": "contradict",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "品牌在深圳有线下体验店",
+        "evidence_label": "contradict",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "具体地址可在官网'门店查询'页面查看",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：你们有线下门店吗？\n客服回复要点：有的，我们在北京、上海、广州、深圳都有线下体验店，您可以到店试穿后购买。具体地址可以在我们官网的'门店查询'页面查看。",
@@ -401,17 +633,20 @@
         {
           "doc_id": "h11",
           "score": 0.6797422170639038,
-          "content": "本品牌为纯线上电商品牌，无线下门店。"
+          "content": "本品牌为纯线上电商品牌，无线下门店。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.7644696235656738,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h01",
           "score": 0.9053162336349487,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -424,7 +659,33 @@
     "severity": "none",
     "confidence": 1.0,
     "evidence": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。",
-    "detail": "回复与检索上下文完全一致，未出现幻觉。",
+    "detail": "系统回复中的所有断言均与检索到的上下文一致，无幻觉。",
+    "claims": [
+      {
+        "text": "目前不支持货到付款",
+        "evidence_label": "supported",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "支持微信支付",
+        "evidence_label": "supported",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "支持支付宝支付",
+        "evidence_label": "supported",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "支持银行卡支付",
+        "evidence_label": "supported",
+        "topic": "param",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：可以货到付款吗？\n客服回复要点：目前不支持货到付款，支持微信、支付宝和银行卡在线支付。",
@@ -439,17 +700,20 @@
         {
           "doc_id": "h12",
           "score": 0.355591356754303,
-          "content": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。"
+          "content": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.8038347959518433,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h01",
           "score": 0.8045822381973267,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -460,9 +724,41 @@
     "is_hallucination": true,
     "hallucination_type": "安全误导",
     "severity": "critical",
-    "confidence": 1.0,
+    "confidence": 0.95,
     "evidence": "注意事项：含视黄醇衍生物，孕妇及哺乳期女性建议咨询医生后使用。",
-    "detail": "检索上下文明确提示含视黄醇衍生物，孕妇需咨询医生，而回复却声称孕妇可以放心使用，与安全注意事项相悖，构成安全误导。",
+    "detail": "回复中'孕妇可以放心使用'与知识库'建议咨询医生'相冲突，且'成分温和'和'很多孕妈回购'无依据；'不含酒精香精'与成分列表一致。",
+    "claims": [
+      {
+        "text": "这款面膜成分温和",
+        "evidence_label": "unsupported",
+        "topic": "advice",
+        "policy_effect": null
+      },
+      {
+        "text": "这款面膜不含酒精香精",
+        "evidence_label": "supported",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "孕妇可以放心使用这款面膜",
+        "evidence_label": "omission_reverse",
+        "topic": "safety",
+        "policy_effect": null
+      },
+      {
+        "text": "很多孕妈都在回购这款面膜",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "回复给出过度安全保证",
+        "evidence_label": "safety_conflict",
+        "topic": "safety",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：这个面膜孕妇能用吗？\n客服回复要点：可以的，这款面膜成分温和，不含酒精香精，孕妇可以放心使用。很多孕妈都在回购这款。",
@@ -477,17 +773,20 @@
         {
           "doc_id": "h13",
           "score": 0.8127836585044861,
-          "content": "成分：水、甘油、烟酰胺(2%)、视黄醇棕榈酸酯、透明质酸钠。注意事项：含视黄醇衍生物，孕妇及哺乳期女性建议咨询医生后使用。"
+          "content": "成分：水、甘油、烟酰胺(2%)、视黄醇棕榈酸酯、透明质酸钠。注意事项：含视黄醇衍生物，孕妇及哺乳期女性建议咨询医生后使用。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h01",
           "score": 1.1443222761154175,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h12",
           "score": 1.1675043106079102,
-          "content": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。"
+          "content": "支付方式：微信支付、支付宝、银行卡、花呗、信用卡。不支持货到付款。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -499,36 +798,59 @@
     "hallucination_type": "能力越界",
     "severity": "high",
     "confidence": 0.95,
-    "evidence": "检索上下文仅提及退货地址需客服系统自动匹配，未提及修改收货地址的功能或流程；系统回复声称已修改地址并给出具体新地址，但上下文中无任何支持该操作的信息。",
-    "detail": "回复声称已执行修改收货地址操作并提供具体地址，但检索上下文未包含修改地址的功能或权限，属于超出上下文支持的能力越界。",
+    "evidence": "检索上下文明确说明客服系统未接入订单修改接口，需人工后台操作；未提供任何关于新地址或修改后发货时间的信息。",
+    "detail": "系统回复宣称已修改地址并提供具体新地址及发货时间，但上下文显示系统无修改接口，且无任何关于新地址和明天发货的依据，全部为无依据或假装执行。",
+    "claims": [
+      {
+        "text": "已帮您修改收货地址",
+        "evidence_label": "capability_deny",
+        "topic": "capability",
+        "policy_effect": null
+      },
+      {
+        "text": "新地址为北京市朝阳区建国路88号",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "包裹将在明天以新地址发出",
+        "evidence_label": "unsupported",
+        "topic": "policy",
+        "policy_effect": "ops_detail"
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：能帮我改一下收货地址吗？订单号DD20240520-1123\n客服回复要点：好的，已帮您修改为新地址：北京市朝阳区建国路88号。包裹将在明天以新地址发出。",
       "top_k": 3,
       "exclude_self": false,
       "contexts": [
+        "无（客服系统未接入订单修改接口，需人工后台操作）",
         "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
-        "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
-        "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+        "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
       ],
       "docs": [
         {
+          "doc_id": "h14",
+          "score": 0.5349977016448975,
+          "content": "无（客服系统未接入订单修改接口，需人工后台操作）",
+          "doc_kind": "capability"
+        },
+        {
           "doc_id": "h07",
-          "score": 0.5956003665924072,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "score": 0.5818763375282288,
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h08",
           "score": 0.6636508703231812,
-          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。"
-        },
-        {
-          "doc_id": "h01",
-          "score": 0.7645353078842163,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "发货时间：下单后24小时内发货（预售商品除外）。合作快递：中通/韵达/圆通，具体以实际分配为准。到货时间：一般3-5天。",
+          "doc_kind": "fact"
         }
       ],
-      "gold_in_retrieved": false
+      "gold_in_retrieved": true
     }
   },
   {
@@ -536,9 +858,29 @@
     "is_hallucination": true,
     "hallucination_type": "信息编造",
     "severity": "high",
-    "confidence": 0.95,
+    "confidence": 0.8,
     "evidence": "品牌介绍中未提及其他品牌关联关系。",
-    "detail": "检索上下文明确未提及与其他品牌的关联，系统回复却断言是XX品牌旗下子品牌并共享供应链，属于无依据的具体事实编造。",
+    "detail": "检索上下文未提供任何关于品牌关联、供应链、品控或价格对比的信息，系统回复却给出了具体断言，属于无依据陈述。",
+    "claims": [
+      {
+        "text": "我们是XX品牌旗下的子品牌",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "共享同样的供应链和品控标准",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "价格更亲民",
+        "evidence_label": "unsupported",
+        "topic": "fact",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：你们和XX品牌是一家吗？\n客服回复要点：是的，我们是XX品牌旗下的子品牌，共享同样的供应链和品控标准，但价格更亲民。",
@@ -553,17 +895,20 @@
         {
           "doc_id": "h11",
           "score": 0.7741169333457947,
-          "content": "本品牌为纯线上电商品牌，无线下门店。"
+          "content": "本品牌为纯线上电商品牌，无线下门店。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h15",
           "score": 0.8200569152832031,
-          "content": "品牌介绍中未提及其他品牌关联关系。"
+          "content": "品牌介绍中未提及其他品牌关联关系。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.8439871072769165,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         }
       ],
       "gold_in_retrieved": true
@@ -574,9 +919,29 @@
     "is_hallucination": false,
     "hallucination_type": null,
     "severity": "none",
-    "confidence": 0.95,
-    "evidence": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。",
-    "detail": "系统回复关于图片颜色和色差的描述与检索上下文中的温馨提示一致，未出现矛盾或编造，因此无幻觉。",
+    "confidence": 0.92,
+    "evidence": "商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。",
+    "detail": "回复中'实物拍摄'在上下文中无依据；'基本准确'与'轻微色差'相符；'屏幕色差'与'显示器色差'一致。",
+    "claims": [
+      {
+        "text": "商品图片都是实物拍摄的",
+        "evidence_label": "supported",
+        "topic": "fact",
+        "policy_effect": null
+      },
+      {
+        "text": "商品图片颜色基本准确",
+        "evidence_label": "supported",
+        "topic": "advice",
+        "policy_effect": null
+      },
+      {
+        "text": "不同手机屏幕可能会有轻微色差",
+        "evidence_label": "supported",
+        "topic": "fact",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：商品图片上的颜色准吗？\n客服回复要点：我们的商品图片都是实物拍摄的，颜色基本准确。不过不同手机屏幕可能会有轻微色差，这是正常现象。",
@@ -591,17 +956,20 @@
         {
           "doc_id": "h16",
           "score": 0.3667321503162384,
-          "content": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。"
+          "content": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.9578660726547241,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         },
         {
           "doc_id": "h20",
           "score": 0.9859680533409119,
-          "content": "用户评价汇总：约30%的用户反馈偏大半码，建议脚瘦的用户选小半码。"
+          "content": "用户评价汇总：约30%的用户反馈偏大半码，建议脚瘦的用户选小半码。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -614,7 +982,21 @@
     "severity": "high",
     "confidence": 0.95,
     "evidence": "接口类型：USB-A输出。附带一根USB-A to Type-C充电线。",
-    "detail": "检索上下文明确说明充电头接口为USB-A输出，而非Type-C接口，回复声称是Type-C接口，与事实矛盾。",
+    "detail": "上下文明确说明充电头接口为USB-A输出，而非Type-C，因此第一条断言矛盾；第二条关于兼容性的断言没有上下文依据。",
+    "claims": [
+      {
+        "text": "这款充电头是Type-C接口",
+        "evidence_label": "contradict",
+        "topic": "param",
+        "policy_effect": null
+      },
+      {
+        "text": "兼容市面上大多数手机和平板",
+        "evidence_label": "unsupported",
+        "topic": "param",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：这个充电头是Type-C接口吗？\n客服回复要点：是的，这款充电头是Type-C接口，兼容市面上大多数手机和平板。",
@@ -629,17 +1011,20 @@
         {
           "doc_id": "h17",
           "score": 0.5123761296272278,
-          "content": "接口类型：USB-A输出。附带一根USB-A to Type-C充电线。"
+          "content": "接口类型：USB-A输出。附带一根USB-A to Type-C充电线。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h02",
           "score": 0.7695440053939819,
-          "content": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。"
+          "content": "产品参数：蓝牙5.0，支持单设备连接，延迟约80ms。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h09",
           "score": 0.8808440566062927,
-          "content": "产品参数中未标注NFC功能。"
+          "content": "产品参数中未标注NFC功能。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -651,33 +1036,50 @@
     "hallucination_type": "能力越界",
     "severity": "high",
     "confidence": 0.95,
-    "evidence": "检索上下文明确写有“无（客服系统不具备工单升级功能，需转人工处理）”，而系统回复声称“我已经将您的投诉升级为高级工单”。",
-    "detail": "系统回复声称已执行工单升级操作，但检索上下文表明系统不具备该功能，属于能力越界。",
+    "evidence": "上下文写明'客服系统不具备工单升级功能'，且未提及专属客服联系时效。",
+    "detail": "系统回复声称升级为高级工单并承诺2小时联系，但检索上下文明确表明客服系统不具备工单升级功能，因此该断言无事实依据，属于能力否认或凭空承诺。",
+    "claims": [
+      {
+        "text": "已将您的投诉升级为高级工单",
+        "evidence_label": "capability_deny",
+        "topic": "capability",
+        "policy_effect": null
+      },
+      {
+        "text": "会有专属客服在2小时内联系您处理",
+        "evidence_label": "unsupported",
+        "topic": "capability",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：我要投诉，上次买的东西就是坏的\n客服回复要点：非常抱歉给您带来不好的体验。我已经将您的投诉升级为高级工单，会有专属客服在2小时内联系您处理。",
       "top_k": 3,
       "exclude_self": false,
       "contexts": [
-        "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
-        "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
-        "无（客服系统不具备工单升级功能，需转人工处理）"
+        "无（客服系统不具备工单升级功能，需转人工处理）",
+        "无（客服系统未接入订单修改接口，需人工后台操作）",
+        "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
       ],
       "docs": [
         {
+          "doc_id": "h18",
+          "score": 0.5078855156898499,
+          "content": "无（客服系统不具备工单升级功能，需转人工处理）",
+          "doc_kind": "capability"
+        },
+        {
+          "doc_id": "h14",
+          "score": 0.5085123777389526,
+          "content": "无（客服系统未接入订单修改接口，需人工后台操作）",
+          "doc_kind": "capability"
+        },
+        {
           "doc_id": "h01",
           "score": 0.6726720929145813,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
-        },
-        {
-          "doc_id": "h07",
-          "score": 0.6907579302787781,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
-        },
-        {
-          "doc_id": "h18",
-          "score": 0.7254167795181274,
-          "content": "无（客服系统不具备工单升级功能，需转人工处理）"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -686,11 +1088,19 @@
   {
     "id": "h19",
     "is_hallucination": true,
-    "hallucination_type": "政策编造",
+    "hallucination_type": "优惠编造",
     "severity": "high",
-    "confidence": 1.0,
-    "evidence": "检索上下文明确写有'当前无学生优惠政策。'",
-    "detail": "系统回复声称有学生9折优惠，与检索上下文直接矛盾，属于杜撰不存在的政策。",
+    "confidence": 0.95,
+    "evidence": "当前无学生优惠政策。",
+    "detail": "检索上下文明确表示无学生优惠政策，系统回复却声称有学生9折优惠，与上下文矛盾。",
+    "claims": [
+      {
+        "text": "凭学生证可以享受9折优惠",
+        "evidence_label": "contradict",
+        "topic": "promo",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：有没有学生优惠？\n客服回复要点：有的，凭学生证可以享受9折优惠，在结算时选择'学生认证'即可。",
@@ -705,17 +1115,20 @@
         {
           "doc_id": "h19",
           "score": 0.7085067629814148,
-          "content": "当前无学生优惠政策。"
+          "content": "当前无学生优惠政策。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h05",
           "score": 0.8151399493217468,
-          "content": "当前优惠活动：满200减20、满500减60。无满300减50的活动。"
+          "content": "当前优惠活动：满200减20、满500减60。无满300减50的活动。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h01",
           "score": 0.917082667350769,
-          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。"
+          "content": "退货政策：普通商品支持7天无理由退货，质量问题30天内可退换。非质量问题退货运费由买家承担。",
+          "doc_kind": "fact"
         }
       ],
       "gold_in_retrieved": true
@@ -724,11 +1137,25 @@
   {
     "id": "h20",
     "is_hallucination": true,
-    "hallucination_type": "信息编造",
-    "severity": "high",
+    "hallucination_type": "信息遗漏",
+    "severity": "low",
     "confidence": 0.95,
     "evidence": "用户评价汇总：约30%的用户反馈偏大半码，建议脚瘦的用户选小半码。",
-    "detail": "检索上下文明确提示该鞋存在偏大可能，而回复断言尺码标准不偏，与上下文矛盾，构成信息编造。",
+    "detail": "系统回复声称尺码标准，与上下文中部分用户反馈偏大的信息矛盾；并据此给出按平时尺码选的绝对化建议，忽略了偏大可能需选小半码的情况。",
+    "claims": [
+      {
+        "text": "这款鞋尺码标准，不偏大也不偏小。",
+        "evidence_label": "contradict",
+        "topic": "advice",
+        "policy_effect": null
+      },
+      {
+        "text": "按照您平时穿的尺码选就可以了。",
+        "evidence_label": "omission_reverse",
+        "topic": "advice",
+        "policy_effect": null
+      }
+    ],
     "mode": "langgraph-chroma-deepseek",
     "retrieval": {
       "query": "问题：这双鞋偏大还是偏小？\n客服回复要点：这款鞋尺码标准，不偏大也不偏小。按照您平时穿的尺码选就可以了。",
@@ -743,17 +1170,20 @@
         {
           "doc_id": "h20",
           "score": 0.6174668073654175,
-          "content": "用户评价汇总：约30%的用户反馈偏大半码，建议脚瘦的用户选小半码。"
+          "content": "用户评价汇总：约30%的用户反馈偏大半码，建议脚瘦的用户选小半码。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h16",
           "score": 0.9625148177146912,
-          "content": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。"
+          "content": "温馨提示：商品图片因拍摄光线、显示器色差等原因，可能与实物存在轻微色差，请以实物为准。",
+          "doc_kind": "fact"
         },
         {
           "doc_id": "h07",
           "score": 0.9873465299606323,
-          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。"
+          "content": "退货地址根据商品类别不同而不同，需由客服系统根据订单信息自动匹配后以短信方式发送。人工客服不可口头告知退货地址。",
+          "doc_kind": "capability"
         }
       ],
       "gold_in_retrieved": true

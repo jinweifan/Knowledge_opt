@@ -35,10 +35,12 @@ def get_deepseek_chat(temperature: float = 0.0) -> Any:
         raise RuntimeError("请设置环境变量 DEEPSEEK_API_KEY")
 
     return ChatOpenAI(
+        # 评测稳定性：优先 chat；flash/推理模型输出更飘，可用环境变量覆盖
         model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat"),
         api_key=api_key,
         base_url=os.getenv("DEEPSEEK_API_BASE", "https://api.deepseek.com"),
         temperature=temperature,
+        max_tokens=int(os.getenv("DEEPSEEK_MAX_TOKENS", "4096")),
     )
 
 

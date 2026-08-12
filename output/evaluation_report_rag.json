@@ -9,47 +9,18 @@
     "detection_rate": 1.0,
     "f1": 1.0,
     "binary_accuracy": 1.0,
-    "accuracy": 0.8,
-    "exact_accuracy": 0.8,
-    "type_accuracy": 0.7778,
-    "type_mismatch_count": 4,
-    "exact_correct": 16,
+    "accuracy": 1.0,
+    "exact_accuracy": 1.0,
+    "type_accuracy": 1.0,
+    "type_mismatch_count": 0,
+    "exact_correct": 20,
     "total": 20,
     "gt_positive": 18,
     "gt_negative": 2
   },
   "false_negatives": [],
   "false_positives": [],
-  "type_mismatch": [
-    {
-      "id": "h01",
-      "gt_type": "政策编造",
-      "pred_type": "政策偏差",
-      "gt_detail": "回复称支持30天无理由退货且运费由商家承担，实际政策为7天无理由且非质量问题运费买家承担。编造了更宽松的退货政策。",
-      "pred_detail": "回复声称全品类支持30天无理由退货且运费由商家承担，与检索上下文中的7天无理由、非质量问题运费买家承担相矛盾，属于政策细节错误。"
-    },
-    {
-      "id": "h10",
-      "gt_type": "能力越界",
-      "pred_type": "信息编造",
-      "gt_detail": "系统未接入退款进度查询接口，却声称已查到进度并给出了具体到账时间。",
-      "pred_detail": "系统回复声称已查询到退款处理中并预计明天到账，但检索上下文没有任何关于退款进度或到账时间的信息，属于编造具体事实。"
-    },
-    {
-      "id": "h19",
-      "gt_type": "优惠编造",
-      "pred_type": "政策编造",
-      "gt_detail": "杜撰了不存在的学生优惠政策和'学生认证'功能入口。",
-      "pred_detail": "系统回复声称有学生9折优惠，与检索上下文直接矛盾，属于杜撰不存在的政策。"
-    },
-    {
-      "id": "h20",
-      "gt_type": "信息遗漏",
-      "pred_type": "信息编造",
-      "gt_detail": "知识库中有'30%用户反馈偏大半码'的信息，回复却说'尺码标准不偏'，遗漏了关键信息导致建议不准确。这类边界较模糊。",
-      "pred_detail": "检索上下文明确提示该鞋存在偏大可能，而回复断言尺码标准不偏，与上下文矛盾，构成信息编造。"
-    }
-  ],
+  "type_mismatch": [],
   "by_type": {
     "ground_truth_counts": {
       "政策编造": 1,
@@ -80,7 +51,7 @@
       "gt_hallucination": true,
       "pred_hallucination": true,
       "gt_type": "政策编造",
-      "pred_type": "政策偏差"
+      "pred_type": "政策编造"
     },
     {
       "id": "h02",
@@ -152,7 +123,7 @@
       "gt_hallucination": true,
       "pred_hallucination": true,
       "gt_type": "能力越界",
-      "pred_type": "信息编造"
+      "pred_type": "能力越界"
     },
     {
       "id": "h11",
@@ -224,7 +195,7 @@
       "gt_hallucination": true,
       "pred_hallucination": true,
       "gt_type": "优惠编造",
-      "pred_type": "政策编造"
+      "pred_type": "优惠编造"
     },
     {
       "id": "h20",
@@ -232,7 +203,7 @@
       "gt_hallucination": true,
       "pred_hallucination": true,
       "gt_type": "信息遗漏",
-      "pred_type": "信息编造"
+      "pred_type": "信息遗漏"
     }
   ]
 }

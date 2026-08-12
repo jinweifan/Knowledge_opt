@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+import re
 import shutil
+from pathlib import Path
 from typing import Any
 
 from langchain_chroma import Chroma
@@ -15,6 +16,11 @@ from kb.pipeline.llm import get_embeddings
 
 DEFAULT_PERSIST = INDEX_DIR
 COLLECTION = "customer_service_kb"
+
+# 知识正文含这些表述时，视为「系统能力/接口边界」类文档（与具体业务事实区分）
+_CAPABILITY_KB_RE = re.compile(
+    r"未接入|不具备|不可口头|需人工|无法查询|不能查询|无（客服系统"
+)
 
 
 def load_replies(path: Path) -> list[dict[str, Any]]:
@@ -51,6 +57,12 @@ def replies_to_documents(replies: list[dict[str, Any]]) -> list[Document]:
                     "doc_id": item["id"],
                     "source": "replies.knowledge_base",
                     "user_question": item.get("user_question", "")[:200],
+                    # 供能力类二次检索过滤；规则基于措辞，不绑定样本 id
+                    "doc_kind": (
+                        "capability"
+                        if _CAPABILITY_KB_RE.search(text)
+                        else "fact"
+                    ),
                 },
             )
         )
@@ -128,6 +140,7 @@ def retrieve_knowledge(
     *,
     top_k: int = 3,
     exclude_doc_id: str | None = None,
+    doc_kind: str | None = None,
 ) -> list[Document]:
     """向量检索知识片段。
 
@@ -136,19 +149,41 @@ def retrieve_knowledge(
         query: 检索查询文本。
         top_k: 返回条数。
         exclude_doc_id: 排除本条对应知识，避免泄漏。
+        doc_kind: 可选，仅保留 metadata.doc_kind 匹配的文档（如 capability）。
 
     Returns:
         命中的 Document 列表（metadata 含 retrieve_score）。
     """
-    # 排除自身时多取若干条再过滤，保证凑满 top_k
-    fetch_k = top_k + (3 if exclude_doc_id else 0)
+    # 排除/过滤时多取若干条再筛，尽量凑满 top_k
+    fetch_k = top_k + 5
     pairs = vectorstore.similarity_search_with_score(query, k=fetch_k)
     results: list[Document] = []
     for doc, score in pairs:
         doc.metadata["retrieve_score"] = float(score)
         if exclude_doc_id and doc.metadata.get("doc_id") == exclude_doc_id:
             continue
+        if doc_kind and doc.metadata.get("doc_kind") != doc_kind:
+            continue
         results.append(doc)
         if len(results) >= top_k:
             break
     return results
+
+
+def merge_retrieved_docs(
+    *doc_lists: list[Document],
+    top_k: int,
+) -> list[Document]:
+    """按 doc_id 去重合并多路检索结果，保留先出现者（调用方控制优先级）。"""
+    seen: set[str] = set()
+    merged: list[Document] = []
+    for docs in doc_lists:
+        for doc in docs:
+            doc_id = str(doc.metadata.get("doc_id") or doc.page_content[:32])
+            if doc_id in seen:
+                continue
+            seen.add(doc_id)
+            merged.append(doc)
+            if len(merged) >= top_k:
+                return merged
+    return merged
